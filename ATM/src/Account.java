@@ -51,6 +51,7 @@ public class Account implements BankAccount {
     @Override
     public void withdraw(int amount) throws InvalidAmountException {
         if(amount > balance){
+            Logger.log("You cannot withdraw more money than you have in your account!");
             throw new InvalidAmountException("You cannot withdraw more money than you have in your account!");
         }
         this.balance -= amount;
