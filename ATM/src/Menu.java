@@ -7,6 +7,7 @@ public class Menu {
     ArrayList<Account> accounts = new ArrayList<>();
     public void mainMenu() throws Exception {
         while(true){
+            accounts.add(new Account("Jan", "Kowalski"));
             System.out.println("ATM SIMULATOR");
             System.out.println("-----------------------------");
             System.out.println("Choose one from options");
@@ -68,17 +69,23 @@ public class Menu {
                     withdrawMoney(loggedUser);
                     break;
                 case 2:
-                    // deposit function
+                    depositMoney(loggedUser);
+                    break;
                 case 3:
-                    // transfer money function
+                    transferMoney(loggedUser, accounts.getFirst());
+                    break;
                 case 4:
-                    // change pin function
+                    changePin(loggedUser);
+                    break;
                 case 5:
-                    // change password function
+                    changePassword(loggedUser);
+                    break;
                 case 6:
+                    loggedUser = null;
+                    mainMenu();
                     break;
                 default:
-                    break;
+                    System.out.println("Invalid option");
             }
         }
 
@@ -91,11 +98,86 @@ public class Menu {
         }
         return null;
     }
-    public void withdrawMoney(Account user) throws InvalidAmountException, IOException {
-        System.out.println("Enter the amount to withdraw: ");
-        int amount = scanner.nextInt();
-        user.withdraw(amount);
-        System.out.println("Succesfully withdrawed money");
-        System.out.println(user.getBalance());
+    public void withdrawMoney(Account user) {
+        try{
+            if(user != null){
+                System.out.println("Enter the amount to withdraw: ");
+                int amount = scanner.nextInt();
+                user.withdraw(amount);
+                System.out.println("Succesfully withdrawed money");
+                System.out.println(user.getBalance());
+            }
+            else{
+                System.out.println("You need to login first");
+            }
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    public void depositMoney(Account user) {
+        try{
+            if(user != null){
+                System.out.println("Enter the amount to deposit:");
+                int amount = scanner.nextInt();
+                user.deposit(amount);
+                System.out.println("Successfully deposited money");
+                System.out.println(user.getBalance());
+            }
+            else{
+                System.out.println("You need to login first");
+            }
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    public void transferMoney(Account sender, Account receiver) {
+        // drugi parametr to musi byc numer konta, potem trzeba sprawdzic czy taki numer istnieje w Arrayliscie i wtedy mozna dopiero kase przeslac
+        try {
+            if (sender != null && receiver != null) {
+                System.out.println("Enter the amount to send");
+                int amount = scanner.nextInt();
+                sender.transferMoney(receiver, amount);
+                System.out.println("Successfully sent money");
+                System.out.println("Sender balance: " + sender.getBalance() + ", Receiver balance: " + receiver.getBalance());
+            } else {
+                System.out.println("You need to login first");
+            }
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+    }
+    public void changePin(Account user){
+        try{
+            if(user!=null){
+                System.out.println("Enter new PIN");
+                String newPin = scanner.next();
+                user.setPinNumber(newPin);
+                System.out.println("Successfully changed PIN");
+            }
+            else{
+                System.out.println("You need to login first");
+            }
+        }
+        catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    public void changePassword(Account user){
+        try{
+            if(user!=null){
+                System.out.println("Enter new password");
+                String newPassword = scanner.next();
+                user.setPassword(newPassword);
+                System.out.println("Successfully changed password");
+            }
+            else{
+                System.out.println("You need to login first");
+            }
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }

@@ -50,21 +50,24 @@ public class Account implements BankAccount {
     @Override
     public void deposit(int amount) throws Exception {
         if(amount > 0){
-            this.balance += amount;
+            changeBalance(amount);
         }
         else{
             Logger.log("You cannot deposit non positive amount of cash");
             throw new Exception("You cannot deposit non positive amount of cash");
         }
     }
+    private void changeBalance(int amount){
+        this.balance += amount;
+    }
 
     @Override
     public void withdraw(int amount) throws InvalidAmountException, IOException {
-        if(amount > balance){
+        if(amount > getBalance()){
             Logger.log("You cannot withdraw more money than you have in your account!");
             throw new InvalidAmountException("You cannot withdraw more money than you have in your account!");
         }
-        this.balance -= amount;
+        changeBalance(-amount);
     }
 
     private String generateAccountNumber(){
@@ -140,13 +143,9 @@ public class Account implements BankAccount {
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
-    public boolean transferMoney(Account account, int cash) throws Exception {
-        if(getBalance() <= cash){
-            return false;
-        }
-        withdraw(cash);
+    public void transferMoney(Account account, int cash) throws Exception {
+        this.withdraw(cash);
         account.deposit(cash);
-        return true;
     }
 }
 
