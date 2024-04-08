@@ -72,7 +72,9 @@ public class Menu {
                     depositMoney(loggedUser);
                     break;
                 case 3:
-                    transferMoney(loggedUser, accounts.getFirst());
+                    System.out.print("Enter the account number of receiver: ");
+                    String accNumber = scanner.next();
+                    transferMoney(loggedUser, accNumber);
                     break;
                 case 4:
                     changePin(loggedUser);
@@ -132,10 +134,11 @@ public class Menu {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    public void transferMoney(Account sender, Account receiver) {
+    public void transferMoney(Account sender, String accNum) {
         // drugi parametr to musi byc numer konta, potem trzeba sprawdzic czy taki numer istnieje w Arrayliscie i wtedy mozna dopiero kase przeslac
         try {
-            if (sender != null && receiver != null) {
+            if (sender != null && searchForAccount(accNum)!=null) {
+                Account receiver = searchForAccount(accNum);
                 System.out.println("Enter the amount to send");
                 int amount = scanner.nextInt();
                 sender.transferMoney(receiver, amount);
@@ -147,6 +150,14 @@ public class Menu {
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
         }
+    }
+    private Account searchForAccount(String accountNumber){
+        for(Account account: accounts){
+            if(account.getAccountNumber().equals(accountNumber)){
+                return account;
+            }
+        }
+        return null;
     }
     public void changePin(Account user){
         try{
