@@ -1,6 +1,8 @@
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -44,12 +46,13 @@ public class Account implements BankAccount {
             this.balance += amount;
         }
         else{
+            Logger.log("You cannot deposit non positive amount of cash");
             throw new Exception("You cannot deposit non positive amount of cash");
         }
     }
 
     @Override
-    public void withdraw(int amount) throws InvalidAmountException {
+    public void withdraw(int amount) throws InvalidAmountException, IOException {
         if(amount > balance){
             Logger.log("You cannot withdraw more money than you have in your account!");
             throw new InvalidAmountException("You cannot withdraw more money than you have in your account!");
@@ -66,8 +69,7 @@ public class Account implements BankAccount {
             int num = random.nextInt(10);
             accNum.append(num);
         }
-        String fullAccNum = prefix + accNum;
-        return fullAccNum;
+        return prefix+accNum;
     }
 
     private String generatePinNumber(){
@@ -100,7 +102,7 @@ public class Account implements BankAccount {
         }
         return password.toString();
     }
-    public void setPassword() throws InvalidPasswordException {
+    public void setPassword() throws InvalidPasswordException, IOException {
         System.out.println("Password should have at least 12 characters, at least 1 lower case letter, at least 1 upper " +
                 "case letter, and 1 special character (@, #, $, %, ^, &, +, =, !, ?, [.], [,], - )");
         Scanner scanner = new Scanner(System.in);
@@ -109,15 +111,18 @@ public class Account implements BankAccount {
             this.password = newPassword;
         }
         else{
+            Logger.log("Invalid password.");
             throw new InvalidPasswordException("Invalid password.");
         }
     }
-    public void setPinNumber(String number) throws InvalidPinException {
+    public void setPinNumber(String number) throws InvalidPinException, IOException {
         if(number.length()<4){
+            Logger.log("Your pin is too short. Set pin with at least 4 characters long, but no longer than 16");
             throw new InvalidPinException("Your pin is too short. Set pin with at least 4 characters long, but no longer than 16");
         }
         if(number.length()>16){
-            throw new InvalidPinException("Your pin is too short. Set pin with at least 4 characters long, but no longer than 16");
+            Logger.log("Your pin is too long. Set pin with at least 4 characters long, but no longer than 16");
+            throw new InvalidPinException("Your pin is too long. Set pin with at least 4 characters long, but no longer than 16");
         }
         this.pinNumber = number;
     }
