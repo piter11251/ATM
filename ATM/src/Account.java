@@ -128,10 +128,10 @@ public class Account implements BankAccount {
         return matcher.matches();
     }
     public boolean transferMoney(Account account, int cash) throws Exception {
-        if(this.getBalance() <= cash){
+        if(getBalance() <= cash){
             return false;
         }
-        setBalance(-cash);
+        withdraw(cash);
         account.deposit(cash);
         return true;
     }
