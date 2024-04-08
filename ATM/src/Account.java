@@ -41,6 +41,13 @@ public class Account implements BankAccount {
     }
 
     @Override
+    public String toString() {
+        return "Name: " + getName() + ", Last Name: " + getLastName() + ", Account Number: " + getAccountNumber() +
+                ", Pin Number: " + getPinNumber() + ", Login: " + getLoginName() + ", Password: " + getPassword() +
+                ", balance: " + getBalance();
+    }
+
+    @Override
     public void deposit(int amount) throws Exception {
         if(amount > 0){
             this.balance += amount;
@@ -83,10 +90,10 @@ public class Account implements BankAccount {
     }
 
     private String generateLogin(){
-        String login = name.substring(0,2) + lastName.substring(0,2);
-        for(int i=0;i<2;i++){
-            Random random = new Random(10);
-            login += random.nextInt();
+        String login = name.substring(0,3).toLowerCase() + lastName.substring(0,3).toLowerCase();
+        for(int i=0;i<3;i++){
+            Random random = new Random();
+            login += random.nextInt(10);
         }
         return login;
     }

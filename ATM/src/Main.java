@@ -1,6 +1,8 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        Account ac = new Account("Piotr", "Kozlowski");
+        Menu menu = new Menu();
+        menu.mainMenu();
+        /*Account ac = new Account("Piotr", "Kozlowski");
         Account ac1 = new Account("Jan", "Kowalski");
         System.out.println(ac.getPassword());
         System.out.println(ac.getBalance());
@@ -22,6 +24,6 @@ public class Main {
         }
         catch(InvalidPinException e){
             System.out.println("Error: " + e.getMessage());
-        }
+        }*/
     }
 }
