@@ -148,4 +148,3 @@ public class Account implements BankAccount {
         account.deposit(cash);
     }
 }
-

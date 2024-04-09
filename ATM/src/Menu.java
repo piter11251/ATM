@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class Menu {
     Scanner scanner = new Scanner(System.in);
     ArrayList<Account> accounts = new ArrayList<>();
+    boolean end = true;
     public void mainMenu() throws Exception {
-        while(true){
+        while(end){
             accounts.add(new Account("Jan", "Kowalski"));
             System.out.println("ATM SIMULATOR");
             System.out.println("-----------------------------");
@@ -25,6 +26,7 @@ public class Menu {
                     loginToAccount();
                     break;
                 case 3:
+                    end = false;
                     break;
                 default:
                     System.out.println("Invalid choice");
@@ -43,6 +45,7 @@ public class Menu {
     }
 
     public void loginToAccount() throws Exception {
+        boolean end1 = true;
         System.out.println("Enter your login");
         String login = scanner.next();
         System.out.println("Enter your password");
@@ -51,7 +54,7 @@ public class Menu {
         if(loggedUser==null){
             throw new Exception("Invalid login or password");
         }
-        while(true){
+        while(end1){
             System.out.println("-----------------------------");
             System.out.println("Choose one from options");
             System.out.println("1. Withdraw");
@@ -84,7 +87,7 @@ public class Menu {
                     break;
                 case 6:
                     loggedUser = null;
-                    mainMenu();
+                    end1=false;
                     break;
                 default:
                     System.out.println("Invalid option");
@@ -111,6 +114,7 @@ public class Menu {
             }
             else{
                 System.out.println("You need to login first");
+                mainMenu();
             }
         }
         catch(Exception e){
@@ -128,6 +132,7 @@ public class Menu {
             }
             else{
                 System.out.println("You need to login first");
+                mainMenu();
             }
         }
         catch(Exception e){
@@ -146,6 +151,7 @@ public class Menu {
                 System.out.println("Sender balance: " + sender.getBalance() + ", Receiver balance: " + receiver.getBalance());
             } else {
                 System.out.println("You need to login first");
+                mainMenu();
             }
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
@@ -169,6 +175,7 @@ public class Menu {
             }
             else{
                 System.out.println("You need to login first");
+                mainMenu();
             }
         }
         catch (Exception e){
@@ -182,6 +189,7 @@ public class Menu {
                 String newPassword = scanner.next();
                 user.setPassword(newPassword);
                 System.out.println("Successfully changed password");
+                mainMenu();
             }
             else{
                 System.out.println("You need to login first");
