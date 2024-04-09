@@ -185,14 +185,12 @@ public class Menu {
     public void changePassword(Account user){
         try{
             if(user!=null){
-                System.out.println("Enter new password");
-                String newPassword = scanner.next();
-                user.setPassword(newPassword);
+                user.setPassword();
                 System.out.println("Successfully changed password");
-                mainMenu();
             }
             else{
                 System.out.println("You need to login first");
+                mainMenu();
             }
         }
         catch(Exception e){
