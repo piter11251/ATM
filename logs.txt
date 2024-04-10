@@ -4,3 +4,6 @@
 08-04-2024 17:43:02 Your pin is too short. Set pin with at least 4 characters long, but no longer than 16
 08-04-2024 22:32:04 You cannot withdraw more money than you have in your account!
 08-04-2024 23:20:31 You cannot withdraw more money than you have in your account!
+10-04-2024 17:05:33 You cannot withdraw more money than you have in your account!
+10-04-2024 17:09:21 You cannot withdraw more money than you have in your account!
+10-04-2024 17:11:03 You cannot withdraw more money than you have in your account!
